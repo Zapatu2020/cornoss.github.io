@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Tapiti le córnea a Jazmín?</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #2c3e50, #3498db);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      font-weight: bold;
+      color: white;
+      text-align: center;
+      margin-bottom: 60px;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .buttons-container {
+      display: flex;
+      gap: 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    #yesBtn {
+      padding: 16px 40px;
+      font-size: 1.6rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      background-color: #27ae60;
+      color: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      position: relative;
+      z-index: 1;
+    }
+
+    #noBtn {
+      padding: 16px 40px;
+      font-size: 1.6rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      background-color: #e74c3c;
+      color: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      position: fixed;
+      z-index: 2;
+    }
+
+    #popup {
+      display: none;
+      position: fixed;
+      top: 20%;
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      font-size: 3rem;
+      padding: 40px 60px;
+      border-radius: 15px;
+      z-index: 999;
+      text-align: center;
+      font-weight: bold;
+      letter-spacing: 1px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      #yesBtn, #noBtn {
+        font-size: 1.3rem;
+      }
+
+      #popup {
+        font-size: 2rem;
+        padding: 30px 50px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Tapiti le córnea a Jazmín?</h1>
+
+  <div class="buttons-container" id="btnBox">
+    <button id="yesBtn">Sí</button>
+  </div>
+
+  <button id="noBtn">No</button>
+
+  <div id="popup">Todos sabemos que le córnea Tapiti</div>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const popup = document.getElementById('popup');
+
+    // Posición inicial del botón "No"
+    window.addEventListener('load', () => {
+      const yesRect = yesBtn.getBoundingClientRect();
+      noBtn.style.left = (yesRect.right + 20) + 'px';
+      noBtn.style.top = yesRect.top + 'px';
+    });
+
+    // Mover el botón "No" aleatoriamente por la pantalla
+    function moveNoButton() {
+      const btnWidth = noBtn.offsetWidth;
+      const btnHeight = noBtn.offsetHeight;
+
+      const maxX = window.innerWidth - btnWidth;
+      const maxY = window.innerHeight - btnHeight;
+
+      const randomX = Math.floor(Math.random() * maxX);
+      const randomY = Math.floor(Math.random() * maxY);
+
+      noBtn.style.left = `${randomX}px`;
+      noBtn.style.top = `${randomY}px`;
+    }
+
+    noBtn.addEventListener('mouseenter', moveNoButton);
+    noBtn.addEventListener('click', moveNoButton);
+    noBtn.addEventListener('touchstart', moveNoButton);
+
+    yesBtn.addEventListener('click', () => {
+      popup.style.display = 'block';
+      setTimeout(() => {
+        popup.style.display = 'none';
+      }, 3000);
+    });
+  </script>
+
+</body>
+</html>
